@@ -15,48 +15,54 @@ namespace atlas::game::nimgame {
                 playRound();
             }
         }
-
-
-
     private:
-
-        auto playRound()-> void {
+        auto playRound()-> void { // Integration
             humanTurn();
             computerTurn();
         }
         auto humanTurn()->void{
-            int turn;
+            if(isGameOver()) return;
+
             while(true) {
                 std::cout << "Es gibt " << _stones << " Steine. Bitte nehmen Sie 1,2 oder 3!" << std::endl;
-                std::cin >> turn;
-                if(turn >= 1 && turn <=3) break;
+                std::cin >> _turn;
+                if(_turn >= 1 && _turn <=3) break;
                 std::cout << " Ungueltiger Zug" << std::endl;
             }
-            _stones -= turn;
+            terminateTurn( "Mensch");
         }
-
-
         auto computerTurn()->void{
+            if(isGameOver()) return;
             const int turns[] = {3,1,1,2};
-            if(isGameOver()) {
-                std::cout << " Du Loser" << std::endl;
-                return;
-            }
-            if(_stones == 1) {
-                std::cout << " Du hast nur Glueck gehabt" << std::endl;
-                _stones = 0;
-                return;
-            }
-            const int turn = turns[_stones % 4];
-            std::cout << "Computer nimmt" << turn << " Steine." << std::endl;
-            _stones -= turn;
+
+
+            _turn = turns[_stones % 4];
+            std::cout << "Computer nimmt" << _turn << " Steine." << std::endl;
+            terminateTurn( "Computer");
+
         }
 
-        auto isGameOver()->bool {
+        auto terminateTurn(std::string player) -> void {
+            updateBoard();
+            printGameOverMessageIfGameIsOver(player);
+        }
+
+        auto printGameOverMessageIfGameIsOver(const std::string &player) -> void {
+            if(isGameOver()) {
+                std::cout << player  << " hat verloren." << std::endl;
+            }
+        }
+
+        // ------------------- Implementierungssumpf
+
+        auto updateBoard()-> void { _stones -= _turn; }
+
+        auto isGameOver()->bool { // Operation
             return _stones < 1;
         }
 
         int _stones;
+        int _turn;
         bool _gameover;
     };
 
