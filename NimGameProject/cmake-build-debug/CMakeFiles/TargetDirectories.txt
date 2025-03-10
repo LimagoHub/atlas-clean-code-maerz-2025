@@ -1,0 +1,3 @@
+C:/Users/JoachimWagner/Documents/git/Atlas/cleancode/atlas-clean-code-maerz-2025/NimGameProject/cmake-build-debug/CMakeFiles/NimGameProject.dir
+C:/Users/JoachimWagner/Documents/git/Atlas/cleancode/atlas-clean-code-maerz-2025/NimGameProject/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/JoachimWagner/Documents/git/Atlas/cleancode/atlas-clean-code-maerz-2025/NimGameProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
