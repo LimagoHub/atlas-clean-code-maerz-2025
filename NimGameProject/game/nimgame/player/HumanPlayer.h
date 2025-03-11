@@ -13,7 +13,7 @@ namespace atlas::game::nimgame::player {
     public:
         explicit HumanPlayer(const std::string &name) : AbstractNimGamePlayer(name) {}
 
-        auto doTurn(const int stones) const -> int override {
+        auto doTurn(const int &stones) const -> int override {
             int turn;
             std::cout << "Es gibt " << stones << " Steine. Bitte nehmen Sie 1,2 oder 3!" << std::endl;
             std::cin >> turn;

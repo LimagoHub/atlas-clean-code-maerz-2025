@@ -1,5 +1,8 @@
 # ninja log v6
-13	673	7633195686249517	CMakeFiles/NimGameProject.dir/main.cpp.obj	332029ede90e26a8
-674	2086	7633195692849094	NimGameProject.exe	bd33fa266b26a6aa
-21	1101	7633866275905633	CMakeFiles/NimGameProject.dir/main.cpp.obj	332029ede90e26a8
-1102	2592	7633866286720471	NimGameProject.exe	bd33fa266b26a6aa
+766	2085	7633893299969601	NimGameProject.exe	bd33fa266b26a6aa
+4	765	7633893292363031	CMakeFiles/NimGameProject.dir/main.cpp.obj	332029ede90e26a8
+3	1162	7633894868104109	build.ninja	5b632f097f903967
+6	1096	7633896465695377	CMakeFiles/NimGameProject.dir/main.cpp.obj	332029ede90e26a8
+1097	2450	7633896476611335	NimGameProject.exe	bd33fa266b26a6aa
+16	724	7633909800829446	CMakeFiles/NimGameProject.dir/main.cpp.obj	332029ede90e26a8
+725	1642	7633909807931368	NimGameProject.exe	bd33fa266b26a6aa

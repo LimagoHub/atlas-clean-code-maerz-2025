@@ -4,103 +4,32 @@
 
 #pragma once
 #include <vector>
-#include "../Game.h"
+#include "../AbstractGame.h"
 #include "../../io/Writer.h"
-#include "player/NimGamePlayer.h"
+#include "../player/Player.h"
+
 namespace atlas::game::nimgame {
 
-    class NimGame: public Game {
-        using PLAYER = player::NimGamePlayer *;
-        using PLAYERS = std::vector<PLAYER>;
+    class NimGame: public AbstractGame<int, int> {
+
 
     public:
-        explicit NimGame(io::Writer &writer) : writer(writer), _stones{23} {}
-
-        auto addPlayer(PLAYER player) -> void {
-            players.push_back(player);
-        }
-        auto removePlayer(PLAYER player) -> void {
-            // Not implemented yet
-        }
-
-        auto play()->void override {
-            while(! isGameOver()) {
-                playRound();
-            }
+        explicit NimGame(io::Writer &writer) : AbstractGame(writer) {
+            setBoard(23);
         }
 
 
-
-    private:
-        auto playRound()-> void { // Integration
-
-           for(auto player: players) {
-               setCurrentPlayer(player);
-               playSingleTurn();
-           }
-
-
-        }
-
-        auto playSingleTurn()->void{
-            if(isGameOver()) return;
-            executeTurn();
-            terminateTurn();
-        }
-
-        auto executeTurn()->void {
-            do {
-                _turn = getCurrentPlayer()->doTurn(_stones);
-            } while(turnIsNotValid());
-        }
-
-        auto turnIsNotValid()-> bool {
-            if( isTurnValid()) return false;
-            write("Ungueltiger Zug");
-            return true;
-        }
-
-
-        auto terminateTurn() -> void {
-            updateBoard();
-            printGameOverMessageIfGameIsOver();
-        }
-
-        auto printGameOverMessageIfGameIsOver() -> void {
-            if(isGameOver()) {
-                   write(getCurrentPlayer()->getName() + " hat verloren.");
-            }
-        }
-
-        // ------------------- Implementierungssumpf
-
-        auto updateBoard()-> void { _stones -= _turn; }
-
-        auto isGameOver()->bool { // Operation
-            return _stones < 1 || players.empty();
-        }
-
-        auto isTurnValid() const -> bool { return _turn >= 1 && _turn <= 3; }
-
-        PLAYERS players;
-        PLAYER currentPlayer;
-        atlas::io::Writer &writer;
-        int _stones;
-        int _turn;
-        bool _gameover;
     protected:
+        auto updateBoard()-> void override{ setBoard(getBoard()- getTurn());}
 
-        const PLAYER getCurrentPlayer() const {
-            return currentPlayer;
+        auto isGameOver()->bool override{ // Operation
+            return getBoard() < 1 || getPlayers().empty();
         }
 
-        void setCurrentPlayer(const PLAYER currentPlayer) {
-            NimGame::currentPlayer = currentPlayer;
-        }
+        auto isTurnValid() const  -> bool override { return getTurn() >= 1 && getTurn() <= 3; }
 
-        auto write(std::string message)->void {
-            writer.write(message);
-        }
+
+
     };
 
 
