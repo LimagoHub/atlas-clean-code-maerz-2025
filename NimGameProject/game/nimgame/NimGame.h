@@ -3,53 +3,72 @@
 //
 
 #pragma once
+#include <vector>
 #include "../Game.h"
+#include "../../io/Writer.h"
+#include "player/NimGamePlayer.h"
 namespace atlas::game::nimgame {
 
     class NimGame: public Game {
+        using PLAYER = player::NimGamePlayer *;
+        using PLAYERS = std::vector<PLAYER>;
+
     public:
-        NimGame():_stones{23} {}
+        explicit NimGame(io::Writer &writer) : writer(writer), _stones{23} {}
+
+        auto addPlayer(PLAYER player) -> void {
+            players.push_back(player);
+        }
+        auto removePlayer(PLAYER player) -> void {
+            // Not implemented yet
+        }
 
         auto play()->void override {
             while(! isGameOver()) {
                 playRound();
             }
         }
+
+
+
     private:
         auto playRound()-> void { // Integration
-            humanTurn();
-            computerTurn();
+
+           for(auto player: players) {
+               setCurrentPlayer(player);
+               playSingleTurn();
+           }
+
+
         }
-        auto humanTurn()->void{
+
+        auto playSingleTurn()->void{
             if(isGameOver()) return;
-
-            while(true) {
-                std::cout << "Es gibt " << _stones << " Steine. Bitte nehmen Sie 1,2 oder 3!" << std::endl;
-                std::cin >> _turn;
-                if(_turn >= 1 && _turn <=3) break;
-                std::cout << " Ungueltiger Zug" << std::endl;
-            }
-            terminateTurn( "Mensch");
-        }
-        auto computerTurn()->void{
-            if(isGameOver()) return;
-            const int turns[] = {3,1,1,2};
-
-
-            _turn = turns[_stones % 4];
-            std::cout << "Computer nimmt" << _turn << " Steine." << std::endl;
-            terminateTurn( "Computer");
-
+            executeTurn();
+            terminateTurn();
         }
 
-        auto terminateTurn(std::string player) -> void {
+        auto executeTurn()->void {
+            do {
+                _turn = getCurrentPlayer()->doTurn(_stones);
+            } while(turnIsNotValid());
+        }
+
+        auto turnIsNotValid()-> bool {
+            if( isTurnValid()) return false;
+            write("Ungueltiger Zug");
+            return true;
+        }
+
+
+        auto terminateTurn() -> void {
             updateBoard();
-            printGameOverMessageIfGameIsOver(player);
+            printGameOverMessageIfGameIsOver();
         }
 
-        auto printGameOverMessageIfGameIsOver(const std::string &player) -> void {
+        auto printGameOverMessageIfGameIsOver() -> void {
             if(isGameOver()) {
-                std::cout << player  << " hat verloren." << std::endl;
+                   write(getCurrentPlayer()->getName() + " hat verloren.");
             }
         }
 
@@ -58,12 +77,30 @@ namespace atlas::game::nimgame {
         auto updateBoard()-> void { _stones -= _turn; }
 
         auto isGameOver()->bool { // Operation
-            return _stones < 1;
+            return _stones < 1 || players.empty();
         }
 
+        auto isTurnValid() const -> bool { return _turn >= 1 && _turn <= 3; }
+
+        PLAYERS players;
+        PLAYER currentPlayer;
+        atlas::io::Writer &writer;
         int _stones;
         int _turn;
         bool _gameover;
+    protected:
+
+        const PLAYER getCurrentPlayer() const {
+            return currentPlayer;
+        }
+
+        void setCurrentPlayer(const PLAYER currentPlayer) {
+            NimGame::currentPlayer = currentPlayer;
+        }
+
+        auto write(std::string message)->void {
+            writer.write(message);
+        }
     };
 
 
