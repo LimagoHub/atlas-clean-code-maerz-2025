@@ -23,12 +23,12 @@ namespace atlas::game {
         }
         auto removePlayer(PLAYER player) -> void {
             // Not implemented yet
+            // TODO implememt feature
         }
 
         auto play()->void override {
-            while(! isGameOver()) {
-                playRound();
-            }
+            while(! isGameOver())  playRound();
+
         }
 
     private:
@@ -71,13 +71,13 @@ namespace atlas::game {
 
 
         PLAYERS players;
-        PLAYER currentPlayer;
+        PLAYER _currentPlayer;
         atlas::io::Writer &writer;
         BOARD _board;
         TURN _turn;
 
         void setCurrentPlayer(const PLAYER currentPlayer) {
-            AbstractGame::currentPlayer = currentPlayer;
+            AbstractGame::_currentPlayer = currentPlayer;
         }
 
 
@@ -107,7 +107,7 @@ namespace atlas::game {
         virtual auto isTurnValid() const -> bool = 0;
 
         const PLAYER getCurrentPlayer() const {
-            return currentPlayer;
+            return _currentPlayer;
         }
 
         const PLAYERS &getPlayers() const {

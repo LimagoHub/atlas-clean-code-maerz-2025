@@ -26,7 +26,7 @@ namespace atlas::game::nimgame {
             return getBoard() < 1 || getPlayers().empty();
         }
 
-        auto isTurnValid() const  -> bool override { return getTurn() >= 1 && getTurn() <= 3; }
+        [[nodiscard]] auto isTurnValid() const  -> bool override { return getTurn() >= 1 && getTurn() <= 3; }
 
 
 

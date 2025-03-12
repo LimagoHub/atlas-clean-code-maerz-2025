@@ -7,6 +7,9 @@
 #include <string>
 
 namespace atlas::io {
+
+
+
     class Writer {
     public:
         virtual ~Writer() = default;

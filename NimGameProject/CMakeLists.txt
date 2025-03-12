@@ -14,4 +14,5 @@ add_executable(NimGameProject main.cpp
         io/ConsoleWriter.h
         game/player/Player.h
         game/AbstractGame.h
+        game/Foo.h
 )

@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include "AbstractNimGamePlayer.h"
+
 namespace atlas::game::nimgame::player {
 
     class HumanPlayer: public AbstractNimGamePlayer{
@@ -14,6 +15,7 @@ namespace atlas::game::nimgame::player {
         explicit HumanPlayer(const std::string &name) : AbstractNimGamePlayer(name) {}
 
         auto doTurn(const int &stones) const -> int override {
+           
             int turn;
             std::cout << "Es gibt " << stones << " Steine. Bitte nehmen Sie 1,2 oder 3!" << std::endl;
             std::cin >> turn;
@@ -21,4 +23,4 @@ namespace atlas::game::nimgame::player {
         }
     };
 
-}
+} // atlas::game::nimgame::player
