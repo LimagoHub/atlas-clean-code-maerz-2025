@@ -99,7 +99,8 @@
 				1,
 				2,
 				3,
-				4
+				4,
+				5
 			]
 		}
 	],
@@ -129,6 +130,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "atlas/bootstrap/Bootstrap.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "atlas/container/impl/decorator/VectorFactoryBenchmarkDecorator.h",
 			"sourceGroupIndex" : 1
 		}
 	],

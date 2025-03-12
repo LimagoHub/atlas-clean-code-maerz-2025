@@ -3,5 +3,5 @@
 int main() {
     atlas::bootstrap::Bootstrap bootstrap;
 
-    bootstrap.run();
+    bootstrap.startApplication();
 }

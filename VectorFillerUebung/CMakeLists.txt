@@ -7,4 +7,6 @@ add_executable(VectorFillerUebung main.cpp
         atlas/time/Stopwatch.h
         atlas/generator/Generator.h
         atlas/container/VectorFactory.h
-        atlas/bootstrap/Bootstrap.h)
+        atlas/bootstrap/Bootstrap.h
+
+        atlas/container/impl/decorator/VectorFactoryBenchmarkDecorator.h)
