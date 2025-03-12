@@ -3,4 +3,7 @@ project(VectorFillerUebung)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(VectorFillerUebung main.cpp)
+add_executable(VectorFillerUebung main.cpp
+        atlas/time/Stopwatch.h
+        atlas/generator/Generator.h
+        atlas/container/VectorFactory.h)
