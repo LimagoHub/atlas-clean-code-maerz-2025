@@ -9,4 +9,5 @@ add_executable(VectorFillerUebung main.cpp
         atlas/container/VectorFactory.h
         atlas/bootstrap/Bootstrap.h
 
-        atlas/container/impl/decorator/VectorFactoryBenchmarkDecorator.h)
+        atlas/container/impl/decorator/VectorFactoryBenchmarkDecorator.h
+        atlas/container/impl/builder/VectorFactoryBuilder.h)

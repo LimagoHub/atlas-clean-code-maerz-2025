@@ -23,7 +23,7 @@ namespace atlas::client {
 
         auto doSomethingWithLargeVector() ->void  override{
 
-            auto v = factory->createAndFillVector(INT_MAX / 8);
+            auto v = factory->createAndFillVector(INT_MAX / 50);
             for (int i = 0; i < 3; ++i) {
                 std::cout << v->at(i) << std::endl;
             }

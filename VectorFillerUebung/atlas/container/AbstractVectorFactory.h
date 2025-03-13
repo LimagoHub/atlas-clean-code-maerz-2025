@@ -17,6 +17,8 @@ namespace atlas::container {
         size_t size_;
 
     protected:
+        AbstractVectorFactory() = default;
+
         auto getData()  -> VECTOR {
             return data_;
         }
@@ -27,7 +29,7 @@ namespace atlas::container {
 
         virtual auto fill_array() -> void = 0;
     public:
-        AbstractVectorFactory() = default;
+
         ~AbstractVectorFactory() override = default;
 
         auto createAndFillVector(size_t size) noexcept-> VECTOR override final {

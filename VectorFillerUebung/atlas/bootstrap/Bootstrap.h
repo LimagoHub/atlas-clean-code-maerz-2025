@@ -10,7 +10,7 @@
 #include "../client/impl/ClientImpl.h"
 #include "../container/impl/sequential/VectorFactorySequentialImpl.h"
 #include "../container/impl/decorator/VectorFactoryBenchmarkDecorator.h"
-#include "../generator/impl/random/MersenneTwisterNumberGenerator.h"
+#include "../generator/impl/random/MersenneTwisterNumberGeneratorFactory.h"
 #include "../time/impl/StopwatchImpl.h"
 
 namespace atlas::bootstrap {
@@ -19,33 +19,42 @@ namespace atlas::bootstrap {
         using VECTOR_FACTORY = std::unique_ptr<atlas::container::VectorFactory<int>>;
         using VECTOR_FACTORY_SEQUENCIAL = atlas::container::VectorFactorySequentialImpl<int>;
         using VECTOR_FACTORY_DECORATOR = atlas::container::VectorFactoryBenchmarkDecorator<int>;
-        using GENERATOR = std::unique_ptr<generator::Generator<int>>;
+        using GENERATOR_BUILDER = std::unique_ptr<generator::GeneratorBuilder<int>>;
         using CLIENT = std::unique_ptr<atlas::client::Client>;
 
     public:
         virtual ~Bootstrap() = default;
 
         auto startApplication()-> void {
-            run();
+            const size_t availableProcessors = std::thread::hardware_concurrency();
+
+            for(size_t threadCount = 1; threadCount <= availableProcessors + 1; ++threadCount){
+                std::cout << "Messung mit " << threadCount << " Threads" << std::endl;
+                run(threadCount);
+            }
+
         }
 
     private:
 
-        static auto run() -> void {
+        static auto run(const int threadCount) -> void {
             auto generator = createGenerator();
-            auto vectorFactory = createVectorFactory(std::move(generator));
+            auto vectorFactory = createVectorFactory(std::move(generator), threadCount);
             auto client = createClient(std::move(vectorFactory));
             client->doSomethingWithLargeVector();
         }
 
-        static GENERATOR createGenerator() {
-            GENERATOR generator = std::make_unique<atlas::generator::MersenneTwisterNumberGenerator>();
-            return generator;
+        static GENERATOR_BUILDER createGenerator() {
+            GENERATOR_BUILDER generatorBuilder = std::make_unique<atlas::generator::MersenneTwisterNumberGeneratorFactory>();
+            return generatorBuilder;
         }
 
-        static VECTOR_FACTORY createVectorFactory(GENERATOR generator) {
+        static VECTOR_FACTORY createVectorFactory(GENERATOR_BUILDER generatorBuilder, const int threadCount) {
             VECTOR_FACTORY factory;
-            factory =   std::make_unique<VECTOR_FACTORY_SEQUENCIAL>(std::move(generator));
+            switch(threadCount) {
+                default: factory =   std::make_unique<VECTOR_FACTORY_SEQUENCIAL>(std::move(generatorBuilder->create()));
+            }
+
             factory = std::make_unique<VECTOR_FACTORY_DECORATOR >(std::move(factory), std::make_unique<atlas::time::StopwatchImpl>());
             return factory;
         }

@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "VectorFillerUebung.exe"
+			"path" : "ThreadDemo.exe"
 		},
 		{
-			"path" : "VectorFillerUebung.pdb"
+			"path" : "ThreadDemo.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -56,7 +56,7 @@
 			]
 		}
 	],
-	"id" : "VectorFillerUebung::@6890427a1f51a3e7e1df",
+	"id" : "ThreadDemo::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -76,8 +76,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "VectorFillerUebung",
-	"nameOnDisk" : "VectorFillerUebung.exe",
+	"name" : "ThreadDemo",
+	"nameOnDisk" : "ThreadDemo.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -91,17 +91,6 @@
 			[
 				0
 			]
-		},
-		{
-			"name" : "Header Files",
-			"sourceIndexes" : 
-			[
-				1,
-				2,
-				3,
-				4,
-				5
-			]
 		}
 	],
 	"sources" : 
@@ -111,31 +100,6 @@
 			"compileGroupIndex" : 0,
 			"path" : "main.cpp",
 			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "atlas/time/Stopwatch.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "atlas/generator/Generator.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "atlas/container/VectorFactory.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "atlas/bootstrap/Bootstrap.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "atlas/container/impl/decorator/VectorFactoryBenchmarkDecorator.h",
-			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"
