@@ -14,8 +14,8 @@ namespace atlas::container {
         using VECTOR_POINTER = std::shared_ptr<std::vector<T>>;
     public:
         VectorFactoryLoggerDecorator(
-                std::unique_ptr<VectorFactory<T>> vectorFactory):_vectorFactory(
-                std::move(vectorFactory)) {}
+                std::unique_ptr<VectorFactory<T>> vectorFactory):
+                _vectorFactory(std::move(vectorFactory)) {}
 
         VECTOR_POINTER createAndFillVector(const size_t size) noexcept override {
             std::cout << "createAndFillVector wurde mit Size " << size << " aufgerufen" << std::endl;
