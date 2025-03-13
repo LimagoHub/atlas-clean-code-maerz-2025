@@ -10,16 +10,19 @@
 #include "../client/impl/ClientImpl.h"
 #include "../container/impl/sequential/VectorFactorySequentialImpl.h"
 #include "../container/impl/decorator/VectorFactoryBenchmarkDecorator.h"
+#include "../container/impl/builder//VectorFactoryBuilder.h"
 #include "../generator/impl/random/MersenneTwisterNumberGeneratorFactory.h"
 #include "../time/impl/StopwatchImpl.h"
+
 
 namespace atlas::bootstrap {
     class Bootstrap {
 
         using VECTOR_FACTORY = std::unique_ptr<atlas::container::VectorFactory<int>>;
-        using VECTOR_FACTORY_SEQUENCIAL = atlas::container::VectorFactorySequentialImpl<int>;
-        using VECTOR_FACTORY_DECORATOR = atlas::container::VectorFactoryBenchmarkDecorator<int>;
+
+        using VECTOR_FACTORY_BUILDER = atlas::container::VectorFactoryBuilder<int>;
         using GENERATOR_BUILDER = std::unique_ptr<generator::GeneratorBuilder<int>>;
+        using STOPWATCH = std::unique_ptr<time::Stopwatch>;
         using CLIENT = std::unique_ptr<atlas::client::Client>;
 
     public:
@@ -28,7 +31,7 @@ namespace atlas::bootstrap {
         auto startApplication()-> void {
             const size_t availableProcessors = std::thread::hardware_concurrency();
 
-            for(size_t threadCount = 1; threadCount <= availableProcessors + 1; ++threadCount){
+            for(size_t threadCount = 0; threadCount <= availableProcessors + 1; ++threadCount){
                 std::cout << "Messung mit " << threadCount << " Threads" << std::endl;
                 run(threadCount);
             }
@@ -50,13 +53,12 @@ namespace atlas::bootstrap {
         }
 
         static VECTOR_FACTORY createVectorFactory(GENERATOR_BUILDER generatorBuilder, const int threadCount) {
-            VECTOR_FACTORY factory;
-            switch(threadCount) {
-                default: factory =   std::make_unique<VECTOR_FACTORY_SEQUENCIAL>(std::move(generatorBuilder->create()));
-            }
+            VECTOR_FACTORY_BUILDER::setThreadCount(threadCount);
+            VECTOR_FACTORY_BUILDER::setLogger(true);
+            VECTOR_FACTORY_BUILDER::setSecure(true);
+            VECTOR_FACTORY_BUILDER::setStopwatch(std::make_unique<time::StopwatchImpl>());
+            return VECTOR_FACTORY_BUILDER::createWithGeneratorBuilder(std::move(generatorBuilder));
 
-            factory = std::make_unique<VECTOR_FACTORY_DECORATOR >(std::move(factory), std::make_unique<atlas::time::StopwatchImpl>());
-            return factory;
         }
 
 

@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.30"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "Release",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "VectorFillerUebung::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-VectorFillerUebung-Debug-aad38b7bdd3d55f83e50.json",
+					"jsonFile" : "target-VectorFillerUebung-Release-c03498d2c073d44a57cc.json",
 					"name" : "VectorFillerUebung",
 					"projectIndex" : 0
 				}
@@ -49,7 +49,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/JoachimWagner/Documents/git/Atlas/cleancode/atlas-clean-code-maerz-2025/VectorFillerUebung/cmake-build-debug",
+		"build" : "C:/Users/JoachimWagner/Documents/git/Atlas/cleancode/atlas-clean-code-maerz-2025/VectorFillerUebung/cmake-build-release",
 		"source" : "C:/Users/JoachimWagner/Documents/git/Atlas/cleancode/atlas-clean-code-maerz-2025/VectorFillerUebung"
 	},
 	"version" : 
